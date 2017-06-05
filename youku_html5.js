@@ -26,7 +26,10 @@ let objID = '';
 let categoryID = 0;
 let uid = '';
 let iid = 0;
-let cna = 'YGRkZGRkZGRkZGRkZGRkZGRW';
+let cna = 'Y';
+const BAES64_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+while(cna.length < 23) cna += BAES64_TABLE[(Math.random() * 64) | 0];
+cna += 'W';
 if (domain == 'v.youku.com') {
     vid = location.href.match(/\/id_([a-zA-Z0-9\=]+)\.html/);
     objID = 'object#movie_player';
