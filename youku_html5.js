@@ -209,7 +209,8 @@ function generate_downlink() {
             let time = ((i.duration / 6e4) | 0) + ':' + padStart(((i.duration / 1e3) | 0) % 60, '0', 2);
             items.push(_('a', { href: i.url, target: '_blank' }, [_('div', { className: 'YHP_down_btn' }, [_('text', '[' + order + '] ' + time)])]));
             order++;
-        })
+        });
+        for (const e of srcUrl[type].segments) if (e && e.url) e.url = e.url.replace('http://k.youku.com/', 'https://k.youku.com/');
         if (items.length > 0) {
             childs.push(_('div', {}, [
                 _('div', { className: 'YHP_down_banner' }, [_('text', '[' + knownTypes[type] + '] '), _('span', { className: 'YHP_output', style: { cursor: 'pointer' }, 'data-type': type }, [_('text', _t('outputUrl'))])]),
@@ -269,7 +270,7 @@ function switchLang(lang) {
 }
 function fetchSrc(extraQuery) {
     tempPwd = extraQuery;
-    fetch('http://ups.youku.com/ups/get.json?ccode=0502&client_ip=192.168.1.1&utid=' + cna + '&client_ts=' + Date.now() + '&vid=' + vid + (extraQuery || ''), {
+    fetch('https://ups.youku.com/ups/get.json?ccode=0502&client_ip=192.168.1.1&utid=' + cna + '&client_ts=' + Date.now() + '&vid=' + vid + (extraQuery || ''), {
         method: 'GET',
         credentials: 'include',
         cache: 'no-cache'
@@ -761,7 +762,7 @@ position:absolute;bottom:0;left:0;right:0;font-size:15px
                 cursor: 'pointer',
             }
         }));
-        fetch('http://ups.youku.com/ups/get.json?ccode=0502&client_ip=127.0.0.1&utid=' + Date.now() + '&client_ts=' + Date.now() + '&vid=' + vid, {
+        fetch('https://ups.youku.com/ups/get.json?ccode=0502&client_ip=192.168.1.1&utid=' + cna + '&client_ts=' + Date.now() + '&vid=' + vid, {
             method: 'GET',
             credentials: 'include',
             cache: 'no-cache'
